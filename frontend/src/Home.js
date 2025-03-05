@@ -8,7 +8,63 @@ import Modal from "./Modal";
 const Homepage = () => {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
+  const [loginData, setLoginData] = useState({ username: "", password: "" });
+  const [registerData, setRegisterData] = useState({ username: "", email: "", password: "" });
   const navigate = useNavigate(); // Initialize navigation
+
+  // Handle input changes
+  const handleChange = (e, formType) => {
+    const { name, value } = e.target;
+    if (formType === "login") {
+      setLoginData({ ...loginData, [name]: value });
+    } else {
+      setRegisterData({ ...registerData, [name]: value });
+    }
+  };
+
+  // Login handler
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Login successful");
+        navigate("/route-selection");
+      } else {
+        alert(result.message || "Login failed");
+      }
+    } catch (error) {
+      alert("Error during login");
+    }
+  };
+
+  // Register handler
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(registerData),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Registration successful");
+        setRegisterOpen(false);
+      } else {
+        alert(result.message || "Registration failed");
+      }
+    } catch (error) {
+      alert("Error during registration");
+    }
+  };
 
   return (
     <div className="homepage-container">
@@ -20,7 +76,7 @@ const Homepage = () => {
         <div className="logo">
           <h1>TransitChain</h1>
         </div>
-      </header> 
+      </header>
 
       <main className="main-content">
         <div className="hero-section">
@@ -42,7 +98,7 @@ const Homepage = () => {
               Get Started Now
             </button>
           </div>
-          
+
           <div className="features-container">
             <div className="feature-card">
               <div className="feature-icon">🔒</div>
@@ -70,9 +126,9 @@ const Homepage = () => {
       {/* Login Modal */}
       <Modal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)}>
         <h2>Login</h2>
-        <form>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+        <form onSubmit={handleLogin}>
+          <input name="username" type="text" placeholder="Username" value={loginData.username} onChange={(e) => handleChange(e, "login")} required />
+          <input name="password" type="password" placeholder="Password" value={loginData.password} onChange={(e) => handleChange(e, "login")} required />
           <button type="submit">Login</button>
         </form>
       </Modal>
@@ -80,10 +136,10 @@ const Homepage = () => {
       {/* Register Modal */}
       <Modal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)}>
         <h2>Register</h2>
-        <form>
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+        <form onSubmit={handleRegister}>
+          <input name="username" type="text" placeholder="Username" value={registerData.username} onChange={(e) => handleChange(e, "register")} required />
+          <input name="email" type="email" placeholder="Email" value={registerData.email} onChange={(e) => handleChange(e, "register")} required />
+          <input name="password" type="password" placeholder="Password" value={registerData.password} onChange={(e) => handleChange(e, "register")} required />
           <button type="submit">Register</button>
         </form>
       </Modal>
@@ -92,3 +148,4 @@ const Homepage = () => {
 };
 
 export default Homepage;
+  
