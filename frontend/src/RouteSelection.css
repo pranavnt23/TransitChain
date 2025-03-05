@@ -1,0 +1,125 @@
+/* RouteSelection.css */
+body {
+    font-family: "Poppins", sans-serif;
+    background: #cefcf6;
+    color: white;
+    
+    margin: 0;
+}
+
+h2{
+    color: whitesmoke;
+}
+/* Centering the box with animations */
+.route-selection-container {
+    background: #88969fb7;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+    
+    /* Centering */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Animation */
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    animation: fadeInScale 0.5s ease-out forwards;
+}
+
+/* Animation for smooth pop-up effect */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+
+
+/* Input fields */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #ddd;
+}
+
+input {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #2c2c2c;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: #bbb;
+}
+
+input:focus {
+    box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
+    border: 1px solid #00d2ff;
+}
+
+/* Buttons */
+.submit-btn,
+.back-btn {
+    padding: 12px;
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Main Action Button */
+.submit-btn {
+    background: linear-gradient(135deg, #00d2ff, #0077b6);
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 210, 255, 0.5);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #0077b6, #00a6ff);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 210, 255, 0.7);
+}
+
+/* Back Button */
+.back-btn {
+    background: #018b38;
+    color: white;
+}
+
+.back-btn:hover {
+    background: #666;
+    transform: scale(1.05);
+}
+
+/* Smooth hover animations */
+button {
+    transition: all 0.3s ease-in-out;
+}
