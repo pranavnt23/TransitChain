@@ -1,23 +1,21 @@
-body {
-    font-family: "Poppins", sans-serif;
-    background: #cefcf6;
-    color: white;
-    margin: 0;
+/* RouteSelection.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
 
-h2 {
-    color: whitesmoke;
-}
-
-/* Centering the box with animations */
 .route-selection-container {
-    background: #88969fb7;
-    padding: 30px;
-    border-radius: 12px;
-    width: 400px;
+    background: rgba(41, 50, 60, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    width: 380px;
     text-align: center;
-    box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.125);
     
     /* Centering */
     position: absolute;
@@ -28,7 +26,7 @@ h2 {
     /* Animation */
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.9);
-    animation: fadeInScale 0.5s ease-out forwards;
+    animation: fadeInScale 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
 }
 
 /* Animation for smooth pop-up effect */
@@ -43,112 +41,133 @@ h2 {
     }
 }
 
+h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Input fields */
 .input-group {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group select {
+    padding: 12px; /* Make the dropdown bigger */
+    font-size: 1.1rem; /* Increase font size */
+    border-radius: 8px;
+    border: 1px solid #00d2ff;
+    background: #2c2c2c;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover and Focus Effect */
+.input-group select:hover,
+.input-group select:focus {
+    box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
+    border-color: #00d2ff;
 }
 
 label {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #ddd;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
 }
 
-/* Styling for input fields */
 input {
-    padding: 12px;
+    padding: 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     outline: none;
-    background: #2c2c2c;
+    background: rgba(44, 44, 44, 0.7);
     color: white;
     transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 input::placeholder {
-    color: #bbb;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 input:focus {
-    box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
-    border: 1px solid #00d2ff;
+    border-color: #00d2ff;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
 }
 
-/* Styling for the dropdown to match input fields */
-select {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    background: #2c2c2c;
-    color: white;
-    transition: all 0.3s ease;
-    appearance: none; /* Remove default dropdown styling */
-    cursor: pointer;
-}
-
-/* Add focus effect like input fields */
-select:focus {
-    box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
-    border: 1px solid #00d2ff;
-}
-
-/* Style the dropdown options */
-select option {
-    background: #2c2c2c;
-    color: white;
-}
-
-/* Ensure dropdown doesn't get overly large */
-select::-ms-expand {
-    display: none; /* Hide dropdown arrow in Edge */
+input:read-only {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 /* Buttons */
 .submit-btn,
 .back-btn {
-    padding: 12px;
+    padding: 15px;
     width: 100%;
     border: none;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 10px;
     transition: all 0.3s ease;
     font-weight: 600;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* Main Action Button */
 .submit-btn {
     background: linear-gradient(135deg, #00d2ff, #0077b6);
     color: white;
-    box-shadow: 0px 4px 10px rgba(0, 210, 255, 0.5);
+    box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
 }
 
 .submit-btn:hover {
     background: linear-gradient(135deg, #0077b6, #00a6ff);
-    transform: scale(1.05);
-    box-shadow: 0px 6px 15px rgba(0, 210, 255, 0.7);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 210, 255, 0.4);
+}
+
+.submit-btn:disabled {
+    background: rgba(128, 128, 128, 0.5);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Back Button */
 .back-btn {
-    background: #018b38;
+    background: rgba(255, 255, 255, 0.1);
     color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .back-btn:hover {
-    background: #666;
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
 }
 
 /* Smooth hover animations */
 button {
     transition: all 0.3s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .route-selection-container {
+        width: 90%;
+        padding: 25px;
+    }
 }
