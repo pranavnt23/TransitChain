@@ -1,6 +1,6 @@
 require('dotenv').config(); // Load environment variables
 const mongoose = require('mongoose');
-const connectDB = require('./config/db'); // Connect to MongoDB
+const connectDB = require('./config/db'); // MongoDB connection
 
 // Bus Route Schema
 const busRouteSchema = new mongoose.Schema({
@@ -9,6 +9,7 @@ const busRouteSchema = new mongoose.Schema({
   fare: { type: Number, required: true },
   fromCoords: { lat: Number, lng: Number },
   toCoords: { lat: Number, lng: Number },
+  order: { type: Number, required: true }, // Added order field
 });
 
 const BusRoute = mongoose.model('bus1_route', busRouteSchema);
@@ -50,25 +51,31 @@ const locations = [
   { name: 'Nehru Nagar-I', lat: 11.2650, lng: 77.4805 },
 ];
 
-// Generate fares with coordinates
+// Generate fares with coordinates and order
 const generateFares = (locations) => {
   const fares = [];
   for (let i = 0; i < locations.length; i++) {
     for (let j = i + 1; j < locations.length; j++) {
       const fare = 5 + (j - i) * 2; // Base fare logic: increase by 2 per stop
+
+      // Forward route
       fares.push({
         from: locations[i].name,
         to: locations[j].name,
         fare,
         fromCoords: { lat: locations[i].lat, lng: locations[i].lng },
         toCoords: { lat: locations[j].lat, lng: locations[j].lng },
+        order: j - i, // Order in forward direction
       });
+
+      // Reverse route
       fares.push({
         from: locations[j].name,
         to: locations[i].name,
         fare,
         fromCoords: { lat: locations[j].lat, lng: locations[j].lng },
         toCoords: { lat: locations[i].lat, lng: locations[i].lng },
+        order: i - j, // Order in reverse direction (negative value)
       });
     }
   }
