@@ -1,6 +1,6 @@
 // Home.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import bgImage from "./assets/bg2.webp";
 import Modal from "./Modal";
@@ -10,7 +10,7 @@ const Homepage = () => {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const [registerData, setRegisterData] = useState({ username: "", email: "", password: "" });
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e, formType) => {
@@ -20,6 +20,17 @@ const Homepage = () => {
     } else {
       setRegisterData({ ...registerData, [name]: value });
     }
+  };
+
+  // Toggle between login and register modals
+  const switchToRegister = () => {
+    setLoginOpen(false);
+    setTimeout(() => setRegisterOpen(true), 300);
+  };
+
+  const switchToLogin = () => {
+    setRegisterOpen(false);
+    setTimeout(() => setLoginOpen(true), 300);
   };
 
   // Login handler
@@ -94,7 +105,7 @@ const Homepage = () => {
               city-specific travel cards. Experience seamless, low-cost transactions with instant settlements 
               and complete privacy.
             </p>
-            <button className="cta-button" onClick={() => navigate("/route-selection")}>
+            <button className="cta-button" onClick={() => setLoginOpen(true)}>
               Get Started Now
             </button>
           </div>
@@ -127,25 +138,65 @@ const Homepage = () => {
       <Modal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)}>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
-          <input name="username" type="text" placeholder="Username" value={loginData.username} onChange={(e) => handleChange(e, "login")} required />
-          <input name="password" type="password" placeholder="Password" value={loginData.password} onChange={(e) => handleChange(e, "login")} required />
+          <input 
+            name="username" 
+            type="text" 
+            placeholder="Username" 
+            value={loginData.username} 
+            onChange={(e) => handleChange(e, "login")} 
+            required 
+          />
+          <input 
+            name="password" 
+            type="password" 
+            placeholder="Password" 
+            value={loginData.password} 
+            onChange={(e) => handleChange(e, "login")} 
+            required 
+          />
           <button type="submit">Login</button>
         </form>
+        <p className="switch-text">
+          Don't have an account? <span className="switch-link" onClick={switchToRegister}>Create one</span>
+        </p>
       </Modal>
 
       {/* Register Modal */}
       <Modal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)}>
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
-          <input name="username" type="text" placeholder="Username" value={registerData.username} onChange={(e) => handleChange(e, "register")} required />
-          <input name="email" type="email" placeholder="Email" value={registerData.email} onChange={(e) => handleChange(e, "register")} required />
-          <input name="password" type="password" placeholder="Password" value={registerData.password} onChange={(e) => handleChange(e, "register")} required />
+          <input 
+            name="username" 
+            type="text" 
+            placeholder="Username" 
+            value={registerData.username} 
+            onChange={(e) => handleChange(e, "register")} 
+            required 
+          />
+          <input 
+            name="email" 
+            type="email" 
+            placeholder="Email" 
+            value={registerData.email} 
+            onChange={(e) => handleChange(e, "register")} 
+            required 
+          />
+          <input 
+            name="password" 
+            type="password" 
+            placeholder="Password" 
+            value={registerData.password} 
+            onChange={(e) => handleChange(e, "register")} 
+            required 
+          />
           <button type="submit">Register</button>
         </form>
+        <p className="switch-text">
+          Already have an account? <span className="switch-link" onClick={switchToLogin}>Login</span>
+        </p>
       </Modal>
     </div>
   );
 };
 
 export default Homepage;
-  
