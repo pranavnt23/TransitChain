@@ -1,15 +1,14 @@
-/* RouteSelection.css */
 body {
     font-family: "Poppins", sans-serif;
     background: #cefcf6;
     color: white;
-    
     margin: 0;
 }
 
-h2{
+h2 {
     color: whitesmoke;
 }
+
 /* Centering the box with animations */
 .route-selection-container {
     background: #88969fb7;
@@ -44,8 +43,6 @@ h2{
     }
 }
 
-
-
 /* Input fields */
 .input-group {
     display: flex;
@@ -61,6 +58,7 @@ label {
     color: #ddd;
 }
 
+/* Styling for input fields */
 input {
     padding: 12px;
     border: none;
@@ -79,6 +77,37 @@ input::placeholder {
 input:focus {
     box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
     border: 1px solid #00d2ff;
+}
+
+/* Styling for the dropdown to match input fields */
+select {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    background: #2c2c2c;
+    color: white;
+    transition: all 0.3s ease;
+    appearance: none; /* Remove default dropdown styling */
+    cursor: pointer;
+}
+
+/* Add focus effect like input fields */
+select:focus {
+    box-shadow: 0px 0px 10px rgba(0, 210, 255, 0.7);
+    border: 1px solid #00d2ff;
+}
+
+/* Style the dropdown options */
+select option {
+    background: #2c2c2c;
+    color: white;
+}
+
+/* Ensure dropdown doesn't get overly large */
+select::-ms-expand {
+    display: none; /* Hide dropdown arrow in Edge */
 }
 
 /* Buttons */
