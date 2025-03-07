@@ -62,11 +62,8 @@ h2 {
     font-size: 1.1rem; /* Increase font size */
     border-radius: 8px;
     border: 1px solid #00d2ff;
-<<<<<<< Updated upstream
     background: #2c2c2c;
-=======
     background: #e1dede;
->>>>>>> Stashed changes
     color: white;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -93,11 +90,8 @@ input {
     border-radius: 10px;
     font-size: 1rem;
     outline: none;
-<<<<<<< Updated upstream
     background: rgba(44, 44, 44, 0.7);
-=======
     background: rgba(243, 233, 233, 0.7);
->>>>>>> Stashed changes
     color: white;
     transition: all 0.3s ease;
     border: 2px solid transparent;
@@ -178,8 +172,4 @@ button {
         width: 90%;
         padding: 25px;
     }
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
