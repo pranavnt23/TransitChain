@@ -10,11 +10,16 @@ const Homepage = () => {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [loginData, setLoginData] = useState({ username: "", password: "" });
   const [registerData, setRegisterData] = useState({ username: "", email: "", password: "" });
+  const [loading, setLoading] = useState(false); // Added loading state
+  const [error, setError] = useState(null); // Added error state
   const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e, formType) => {
     const { name, value } = e.target;
+    // Clear any previous errors
+    setError(null);
+    
     if (formType === "login") {
       setLoginData({ ...loginData, [name]: value });
     } else {
@@ -25,17 +30,22 @@ const Homepage = () => {
   // Toggle between login and register modals
   const switchToRegister = () => {
     setLoginOpen(false);
+    setError(null); // Clear errors when switching forms
     setTimeout(() => setRegisterOpen(true), 300);
   };
 
   const switchToLogin = () => {
     setRegisterOpen(false);
+    setError(null); // Clear errors when switching forms
     setTimeout(() => setLoginOpen(true), 300);
   };
 
   // Login handler
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -44,20 +54,29 @@ const Homepage = () => {
       });
 
       const result = await response.json();
+      
       if (response.ok) {
-        alert("Login successful");
+        // Store user info in localStorage or context
+        localStorage.setItem('user', JSON.stringify(result.user));
+        setLoginOpen(false);
         navigate("/route-selection");
       } else {
-        alert(result.message || "Login failed");
+        setError(result.message || "Login failed");
       }
     } catch (error) {
-      alert("Error during login");
+      setError("Error connecting to server. Please try again.");
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   // Register handler
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+    
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -66,14 +85,20 @@ const Homepage = () => {
       });
 
       const result = await response.json();
+      
       if (response.ok) {
-        alert("Registration successful");
         setRegisterOpen(false);
+        // Show success and switch to login
+        alert(`Registration successful! `);
+        switchToLogin();
       } else {
-        alert(result.message || "Registration failed");
+        setError(result.message || "Registration failed");
       }
     } catch (error) {
-      alert("Error during registration");
+      setError("Error connecting to server. Please try again.");
+      console.error("Registration error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -137,6 +162,7 @@ const Homepage = () => {
       {/* Login Modal */}
       <Modal isOpen={isLoginOpen} onClose={() => setLoginOpen(false)}>
         <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleLogin}>
           <input 
             name="username" 
@@ -145,6 +171,7 @@ const Homepage = () => {
             value={loginData.username} 
             onChange={(e) => handleChange(e, "login")} 
             required 
+            disabled={loading}
           />
           <input 
             name="password" 
@@ -153,8 +180,11 @@ const Homepage = () => {
             value={loginData.password} 
             onChange={(e) => handleChange(e, "login")} 
             required 
+            disabled={loading}
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
         <p className="switch-text">
           Don't have an account? <span className="switch-link" onClick={switchToRegister}>Create one</span>
@@ -164,6 +194,7 @@ const Homepage = () => {
       {/* Register Modal */}
       <Modal isOpen={isRegisterOpen} onClose={() => setRegisterOpen(false)}>
         <h2>Register</h2>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleRegister}>
           <input 
             name="username" 
@@ -172,6 +203,7 @@ const Homepage = () => {
             value={registerData.username} 
             onChange={(e) => handleChange(e, "register")} 
             required 
+            disabled={loading}
           />
           <input 
             name="email" 
@@ -180,6 +212,7 @@ const Homepage = () => {
             value={registerData.email} 
             onChange={(e) => handleChange(e, "register")} 
             required 
+            disabled={loading}
           />
           <input 
             name="password" 
@@ -188,8 +221,11 @@ const Homepage = () => {
             value={registerData.password} 
             onChange={(e) => handleChange(e, "register")} 
             required 
+            disabled={loading}
           />
-          <button type="submit">Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
         </form>
         <p className="switch-text">
           Already have an account? <span className="switch-link" onClick={switchToLogin}>Login</span>

@@ -1,0 +1,1036 @@
+.payment-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .payment-container {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .payment-container h1 {
+    text-align: center;
+    color: #2d3748; /* Darker text color */
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .journey-details {
+    background-color: #edf2ff; /* Lighter blue background for better contrast */
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .journey-details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+  }
+  
+  .detail:hover {
+    background-color: rgba(94, 114, 228, 0.1);
+    border-radius: 6px;
+    padding: 5px 10px;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  
+  .separator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8px 0;
+    position: absolute;
+    left: 20px;
+    top: 48px;
+    height: 40px;
+  }
+  
+  body {
+    background-color: #2c3e50; /* Dark blue-gray */
+    color: white; /* Ensures text is visible */
+}
+
+.from, .to {
+    background-color: #34495e; /* Darker shade */
+    color: white; /* Light text for visibility */
+    padding: 10px; /* Adds spacing */
+    border-radius: 5px; /* Optional rounded corners */
+}
+
+/* Add this to your CSS to ensure text is visible on dark backgrounds */
+.detail .label, .detail .value, .fare .label, .fare .value {
+    color: white !important; /* Force white text for visibility */
+}
+
+/* Fix the journey-details background on dark mode */
+.journey-details {
+    background-color: #34495e !important; /* Darker background for contrast */
+}
+
+/* Ensure payment method text is visible */
+.method-name {
+    color: white !important;
+}
+
+/* Ensure form text and selections are visible */
+.input-group label, .input-group select, .select-bank {
+    color: white !important;
+}
+
+select, option {
+    background-color: #34495e !important;
+    color: white !important;
+}
+
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #4f46e5; /* Indigo */
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    animation: pulseDot 2s infinite;
+  }
+  
+  .line {
+    width: 3px; /* Thicker line */
+    height: 100%;
+    background: linear-gradient(to bottom, #4f46e5 50%, transparent 50%);
+    background-size: 100% 10px;
+    animation: flowLine 3s infinite linear;
+  }
+  
+  @keyframes pulseDot {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes flowLine {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 20px; }
+  }
+  
+  .detail .label, .fare .label {
+    color: #1e293b; /* Much darker gray for excellent contrast */
+    font-size: 14px;
+    padding-left: 30px;
+    font-weight: 600; /* Bold for better visibility */
+  }
+  
+  .detail .value, .fare .value {
+    color: #111827; /* Almost black for maximum readability */
+    font-weight: 700; /* Extra bold for key information */
+    font-size: 16px;
+  }
+  
+  .fare {
+    margin-top: 15px;
+    border-top: 1px dashed #ddd;
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    animation: fadeInUp 0.5s ease-out;
+  }
+  
+  .price {
+    color: #4c1d95 !important; /* Deep purple for prices - highly visible */
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .price::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4c1d95;
+    transition: width 0.4s ease;
+  }
+  
+  .price:hover::after {
+    width: 100%;
+  }
+  
+  .payment-methods {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .method {
+    flex: 1;
+    min-width: 100px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 2px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .method::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(94, 114, 228, 0) 0%,
+      rgba(94, 114, 228, 0.1) 100%
+    );
+    transition: left 0.5s ease;
+  }
+  
+  .method:hover {
+    background-color: #eef1f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .method:hover::before {
+    left: 100%;
+  }
+  
+  .method.active {
+    background-color: #edf2ff;
+    border-color: #4f46e5;
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+  }
+  
+  .method-icon {
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .method-icon i {
+    font-style: normal;
+    font-weight: bold;
+    color: #4f46e5; /* Darker color for better visibility */
+    font-size: 12px;
+  }
+  
+  .method-name {
+    font-size: 14px;
+    color: #1e293b; /* Darker text for method names */
+    font-weight: 600;
+  }
+  
+  .payment-form {
+    margin-bottom: 25px;
+    animation: fadeInUp 0.3s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1e293b; /* Darker color for labels */
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: #111827; /* Very dark text for input values */
+    background-color: #fff;
+  }
+  
+  .input-group input:focus, .input-group select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    outline: none;
+  }
+  
+  .input-group input::placeholder {
+    color: #6b7280; /* Darker placeholder text */
+  }
+  
+  .input-with-action {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-action input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    flex: 1;
+  }
+  
+  .action-btn {
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+  }
+  
+  .action-btn:hover {
+    background-color: #4338ca;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-row .input-group {
+    flex: 1;
+  }
+  
+  .expiry-inputs {
+    display: flex;
+    align-items: center;
+  }
+  
+  .expiry-inputs select {
+    flex: 1;
+    padding: 12px;
+  }
+  
+  .expiry-inputs span {
+    padding: 0 5px;
+    color: #4b5563; /* Darker color */
+  }
+  
+  .user-info {
+    background-color: #1e293b;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-left: 3px solid #4f46e5;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .message {
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+  }
+  
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .pay-button, .proceed-bank-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); /* More vibrant gradient */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  }
+  
+  .pay-button:hover, .proceed-bank-btn:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  .pay-button:active, .proceed-bank-btn:active {
+    transform: translateY(0);
+  }
+  
+  .pay-button::after, .proceed-bank-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
+  
+  .pay-button:focus:not(:active)::after, .proceed-bank-btn:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+  }
+  
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0.5;
+    }
+    20% {
+      transform: scale(25, 25);
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(40, 40);
+    }
+  }
+  
+  .back-button {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    color: #4b5563; /* Darker color */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+  }
+  
+  .back-button:hover {
+    background-color: #f8f9fa;
+    color: #4f46e5;
+    border-color: #4f46e5;
+  }
+  
+  .loading {
+    pointer-events: none;
+    color: transparent;
+  }
+  
+  .loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Enhanced Credit Card Styling */
+  .card-container {
+    perspective: 1000px;
+    margin: 0 auto 30px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .credit-card {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); /* More vibrant gradient */
+    border-radius: 16px;
+    padding: 25px;
+    width: 100%;
+    height: 220px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+    color: white;
+  }
+  
+  .credit-card.has-value {
+    box-shadow: 0 15px 30px rgba(79, 70, 229, 0.4);
+  }
+  
+  .card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-chip {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #f4d03f 0%, #f9b234 100%);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+    padding: 3px;
+  }
+  
+  .chip-line {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    width: 100%;
+    border-radius: 1px;
+  }
+  
+  .card-number {
+    font-size: 22px;
+    letter-spacing: 2.5px;
+    margin-top: 60px;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .card-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0 5px;
+  }
+  
+  .card-holder, .card-expiry {
+    font-size: 14px;
+    max-width: 50%;
+  }
+  
+  .card-holder div, .card-expiry div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 16px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-holder label, .card-expiry label {
+    display: block;
+    color: rgba(255, 255, 255, 0.9); /* Brighter label for better visibility */
+    margin-bottom: 5px;
+    font-size: 10px;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  
+  /* Enhanced Bank Modal Styling */
+  .bank-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+    backdrop-filter: blur(3px);
+  }
+  
+  .bank-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 500px;
+    animation: zoomIn 0.3s;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  @keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  
+  .bank-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .bank-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #1e293b; /* Darker text */
+    font-weight: 600;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    color: #6b7280; /* Darker for better visibility */
+    cursor: pointer;
+    transition: color 0.3s;
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .close-btn:hover {
+    color: #1e293b;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .bank-modal-content {
+    padding: 25px;
+  }
+  
+  .bank-logo {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .bank-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); /* More vibrant gradient */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
+  }
+  
+  .bank-modal-content h3 {
+    text-align: center;
+    color: #1e293b; /* Darker text */
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .transaction-details {
+    background-color: #edf2ff; /* Light blue background */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #4f46e5;
+  }
+  
+  .transaction-info p {
+    margin: 12px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #1e293b; /* Darker text */
+  }
+  
+  .transaction-info p strong {
+    color: #111827; /* Almost black */
+  }
+  
+  .bank-login-btn, .confirm-payment-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); /* More vibrant gradient */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  }
+  
+  .bank-login-btn:hover, .confirm-payment-btn:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  /* Additional enhancements and responsiveness */
+  .payment-methods .method:first-child {
+    margin-left: 0;
+  }
+  
+  .payment-methods .method:last-child {
+    margin-right: 0;
+  }
+  
+  .netbanking-form .proceed-bank-btn {
+    margin-top: 15px;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); /* More vibrant gradient */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  }
+  
+  .netbanking-form .proceed-bank-btn:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.3);
+  }
+  
+  /* Add before pseudo-element for the credit card magnetic strip */
+  .credit-card:before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: -1;
+  }
+  
+  /* Add shiny effect to the credit card */
+  .credit-card:after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 20%,
+      rgba(255, 255, 255, 0.1) 40%,
+      rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(-45deg);
+    animation: cardShine 6s infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes cardShine {
+    0% { transform: rotate(-45deg) translateX(-50%); }
+    50% { transform: rotate(-45deg) translateX(120%); }
+    100% { transform: rotate(-45deg) translateX(120%); }
+  }
+  
+  /* Make responsive adjustments */
+  @media (max-width: 600px) {
+    .payment-container {
+      padding: 20px;
+    }
+    
+    .card-number {
+      font-size: 18px;
+    }
+    
+    .card-holder, .card-expiry {
+      font-size: 12px;
+    }
+    
+    .form-row {
+      flex-direction: column;
+      gap: 0;
+    }
+    
+    .bank-modal {
+      width: 95%;
+    }
+  }
+  
+  .credit-card {
+    width: 400px; /* Increased size */
+    height: 220px; /* Adjusted height */
+  }
+  .card-number {
+    font-size: 24px; /* Bigger font for better visibility */
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .card-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 50px;
+  }
+  
+  .card-holder,
+  .card-expiry {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card-holder label,
+  .card-expiry label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9); /* Brighter white */
+  }
+  
+  .card-number-group {
+    letter-spacing: 1px;
+  }
+  
+  /* Add support for dark mode */
+  @media (prefers-color-scheme: dark) {
+    .payment-container {
+      background: #1a202c;
+      color: #f7fafc; /* Brighter text for dark mode */
+    }
+    
+    .payment-container h1 {
+      color: #f7fafc;
+    }
+    
+    .journey-details {
+      background-color: #2d3748;
+    }
+    
+    .detail .value, .fare .value {
+      color: #f7fafc; /* Bright text for dark mode */
+    }
+    
+    .detail .label, .fare .label {
+      color: #e2e8f0; /* Light gray with good contrast */
+    }
+    
+    .method {
+      background-color: #2d3748;
+    }
+    
+    .method:hover {
+      background-color: #4a5568;
+    }
+    
+    .method.active {
+      background-color: #3a4559;
+      border-color: #6366f1; /* Bright indigo for active state */
+    }
+    
+    .method-name {
+      color: #f7fafc;
+    }
+    
+    .input-group label {
+      color: #e2e8f0;
+    }
+    
+    .input-group input, .input-group select {
+      background-color: #2d3748;
+      color: #f7fafc; /* Bright text for input fields */
+      border-color: #4a5568;
+    }
+    
+    .input-group input::placeholder {
+      color: #a0aec0; /* Light gray for placeholders */
+    }
+    
+    .back-button {
+      color: #e2e8f0; /* Brighter text for button */
+      border-color: #4a5568;
+    }
+    
+    .back-button:hover {
+      background-color: #2d3748;
+      color: #818cf8; /* Bright indigo for hover */
+    }
+    
+    .price {
+      color: #818cf8 !important; /* Bright indigo for prices in dark mode */
+    }
+    
+    .separator .dot {
+      background-color: #818cf8; /* Bright indigo for dots */
+    }
+    
+    .separator .line {
+      background: linear-gradient(to bottom, #818cf8 50%, transparent 50%);
+      background-size: 100% 10px;
+    }
+    
+    .transaction-details {
+      background-color: #2d3748;
+      border-left-color: #818cf8;
+    }
+    
+    .transaction-info p {
+      color: #e2e8f0;
+    }
+    
+    .transaction-info p strong {
+      color: #f7fafc;
+    }
+  }
+
+  /* Add these styles to fix the visibility in the bank login modal */
+.bank-modal input[type="text"],
+.bank-modal input[type="password"],
+.bank-modal input[type="email"] {
+  background-color: #fff !important;
+  color: #333 !important;
+  border: 1px solid #ddd;
+}
+
+/* Fix the placeholder text color in the modal */
+.bank-modal input::placeholder {
+  color: #777 !important;
+}
+
+/* Ensure text is visible in the modal */
+.bank-modal {
+  background-color: #fff !important;
+  color: #333 !important;
+}
+
+.bank-modal-header {
+  background-color: #f8f9fa !important;
+  color: #1e293b !important;
+}
+
+.bank-modal h2, 
+.bank-modal h3, 
+.bank-modal p {
+  color: #1e293b !important;
+}
+
+/* Fix transaction details in modal */
+.transaction-details {
+  background-color: #edf2ff !important;
+}
+
+.transaction-info p {
+  color: #1e293b !important;
+}
+
+.transaction-info p strong {
+  color: #111827 !important;
+}
+@media (prefers-color-scheme: dark) {
+  .input-group input, .input-group select {
+    background-color: #2d3748;
+    color: #f7fafc;
+    border-color: #4a5568;
+  }
+}
+
+/* Override dark mode for bank modal */
+@media (prefers-color-scheme: dark) {
+  .bank-modal,
+  .bank-modal-content,
+  .bank-modal-header {
+    background-color: #fff !important;
+    color: #333 !important;
+  }
+  
+  .bank-modal input {
+    background-color: #fff !important;
+    color: #333 !important;
+    border: 1px solid #ddd !important;
+  }
+  
+  .bank-modal h2,
+  .bank-modal h3,
+  .bank-modal label,
+  .bank-modal p {
+    color: #333 !important;
+  }
+}

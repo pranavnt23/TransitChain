@@ -17,7 +17,6 @@ const RouteSelection = () => {
       { from: "Avinashi Bus Stand", to: "Tirupur New Bus Stand" },
       { from: "Tirupur New Bus Stand", to: "Avinashi Temple" }
     ];
-
     const uniqueLocations = [...new Set(routes.flatMap(route => [route.from, route.to]))];
     setLocations(uniqueLocations);
 
@@ -26,7 +25,6 @@ const RouteSelection = () => {
         (position) => {
           const { latitude, longitude } = position.coords;
           setCurrentLocation(`Lat: ${latitude}, Lng: ${longitude}`);
-
           // Here, you could implement logic to determine the nearest bus stand
           // For now, let's assume "Tirupur New Bus Stand" as the default source
           setSource("Tirupur New Bus Stand");
@@ -42,31 +40,40 @@ const RouteSelection = () => {
     }
   }, []);
 
+  const handleProceed = () => {
+    if (!destination) {
+      alert("Please select a destination");
+      return;
+    }
+    navigate("/payment", { state: { source, destination } });
+  };
+
   return (
     <div className="route-selection-container">
       <h2>Select Your Route</h2>
-
       <div className="input-group">
         <label>Current Location</label>
         <input type="text" value={currentLocation} readOnly />
       </div>
-
       <div className="input-group">
         <label>Source</label>
         <input type="text" value={source} readOnly />
       </div>
-
       <div className="input-group">
         <label>Destination</label>
-        <select value={destination} onChange={(e) => setDestination(e.target.value)}>
+        <select 
+          value={destination} 
+          onChange={(e) => setDestination(e.target.value)}
+        >
           <option value="">Select Destination</option>
           {locations.map((location, index) => (
-            <option key={index} value={location}>{location}</option>
+            location !== source && (
+              <option key={index} value={location}>{location}</option>
+            )
           ))}
         </select>
       </div>
-
-      <button className="submit-btn">Proceed</button>
+      <button className="submit-btn" onClick={handleProceed}>Proceed</button>
       <button className="back-btn" onClick={() => navigate("/")}>Back</button>
     </div>
   );
